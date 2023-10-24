@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import dj_database_url
 import os
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -83,6 +84,7 @@ REST_FRAMEWORK = {
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
@@ -92,9 +94,22 @@ REST_FRAMEWORK = {
 #     }
 # }
 
-DATABASES = {
-	"default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
-}
+#development mode
+if config('MODE')=="dev":
+    DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        }
+    }
+#production mode
+    DATABASES = {
+        "default":dj_database_url.config(default=config('DATABASE_URL'))
+        # "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
+    }
 
 
 # Password validation
