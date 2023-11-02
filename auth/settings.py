@@ -14,16 +14,21 @@ from pathlib import Path
 import dj_database_url
 import os
 from decouple import config
+from dotenv import load_dotenv
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+load_dotenv(os.path.join(BASE_DIR, ".env"))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-j!-bt_)=#yg@!@3@=pt^9&bdo+mn7yhi=-k2-dos+@!@gg=t6f'
+# SECRET_KEY = 'django-insecure-j!-bt_)=#yg@!@3@=pt^9&bdo+mn7yhi=-k2-dos+@!@gg=t6f'
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -86,14 +91,14 @@ REST_FRAMEWORK = {
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'authentication',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'authentication',
+#         'USER': 'postgres',
+#         'PASSWORD': 'postgres',
+#     }
+# }
 
 # DATABASES = {
 #     'default': {
@@ -103,6 +108,15 @@ DATABASES = {
 #         'PASSWORD': config('DB_PASSWORD'),
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+    }
+}
 
 #development mode
 # if config('MODE')=="dev":
