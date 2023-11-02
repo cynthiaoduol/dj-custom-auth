@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-j!-bt_)=#yg@!@3@=pt^9&bdo+mn7yhi=-k2-dos+@!@gg=t6f
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -95,22 +95,31 @@ REST_FRAMEWORK = {
 #     }
 # }
 
-#development mode
-if config('MODE')=="dev":
-    DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': config('DB_NAME'),
         'USER': config('DB_USER'),
         'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        }
     }
-#production mode
-    DATABASES = {
-        "default":dj_database_url.config(default=config('DATABASE_URL'))
-        # "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
-    }
+}
+
+#development mode
+# if config('MODE')=="dev":
+#     DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': config('DB_NAME'),
+#         'USER': config('DB_USER'),
+#         'PASSWORD': config('DB_PASSWORD'),
+#         'HOST': config('DB_HOST'),
+#         }
+#     }
+# #production mode
+#     DATABASES = {
+#         "default":dj_database_url.config(default=config('DATABASE_URL'))
+#         # "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
+#     }
 
 
 # Password validation
@@ -149,6 +158,8 @@ AUTH_USER_MODEL= "users.Hospital"
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
