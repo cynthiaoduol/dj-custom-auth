@@ -14,21 +14,21 @@ from pathlib import Path
 import dj_database_url
 import os
 from decouple import config
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-load_dotenv(os.path.join(BASE_DIR, ".env"))
+# load_dotenv(os.path.join(BASE_DIR, ".env"))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-j!-bt_)=#yg@!@3@=pt^9&bdo+mn7yhi=-k2-dos+@!@gg=t6f'
-SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY = 'django-insecure-j!-bt_)=#yg@!@3@=pt^9&bdo+mn7yhi=-k2-dos+@!@gg=t6f'
+# SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -112,9 +112,11 @@ REST_FRAMEWORK = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME'),
-        'USER': os.getenv('DB_USER'),
-        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'aEaE4*e5d-*6-b1fEb-6-EeB5BB-6BG3',
+        'HOST':'monorail.proxy.rlwy.net',
+        'PORT':'36775',
     }
 }
 
@@ -172,10 +174,10 @@ AUTH_USER_MODEL= "users.Hospital"
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+# STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 MEDIA_URL='media/'
